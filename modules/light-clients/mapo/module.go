@@ -1,4 +1,4 @@
-package harmony
+package mapo
 
 import (
 	"encoding/json"
@@ -7,9 +7,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/datachainlab/ibc-harmony-client/modules/light-clients/harmony/types"
 	"github.com/gorilla/mux"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/neoiss/ibc-mapo-client/modules/light-clients/mapo/types"
 	"github.com/spf13/cobra"
 )
 

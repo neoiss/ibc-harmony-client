@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package ibc.lightclients.mapo.v1;
+
+option go_package = "github.com/neoiss/ibc-mapo-client/modules/light-clients/mapo/types";
+
+option (gogoproto.goproto_getters_all)  = false;
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/timestamp.proto";
+import "ibc/core/client/v1/client.proto";
+
+
+message ClientState {
+  bool frozen = 1;
+  uint64  latestEpoch = 2;
+  uint64  epochSize = 3;
+  uint64  latestHeight = 4;
+  string clientIdentifier = 5;
+}
+
+message ConsensusState {
+  uint64 epoch = 1;
+  ValidatorSet validators = 2;
+  bytes commitmentRoot = 3;
+  google.protobuf.Timestamp timestamp = 4 [(gogoproto.nullable) = false, (gogoproto.stdtime) = true];
+}
+
+message ValidatorSet {
+  repeated PairKey pairKeys = 1;
+  repeated uint64 weights = 2;
+}
+
+message PairKey {
+  string address = 1;
+  bytes G2PubKey = 2;
+}
+
+message Header {
+  SignedHeader signedHeader = 1 [(gogoproto.embed) = true];
+  bytes commitmentRoot = 2;
+  string identifier = 3;
+}
+
+message SignedHeader {
+  bytes parentHash = 1;
+  bytes root = 2;
+  bytes txRoot = 3;
+  bytes receiptRoot = 4;
+  uint64 timestamp = 5;
+  uint64 gasLimit = 6;
+  uint64 gasUsed = 7;
+  uint64 nonce = 8;
+  bytes bloom = 9;
+  bytes extraData = 10;
+  bytes mixDigest = 11;
+  uint64 baseFee = 12;
+  uint64 number = 13;
+}
+
+message Misbehaviour {
+  string client_id = 1;
+  Header header_1  = 2 [(gogoproto.customname) = "Header1"];
+  Header header_2  = 3 [(gogoproto.customname) = "Header2"];
+}
